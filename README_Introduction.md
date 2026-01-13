@@ -103,3 +103,88 @@ printTriangle();
 ## Space Complexity
 
 The `amount of memory space an algorithm uses during execution in relation to the input`.
+
+To improve the performance of code we need to determine how `fast it runs` and how much `memory it uses`.
+
+In the following example, to calculate the space complexity, we go line by line and determine the execution requirements.
+
+```js
+function sumSquares(n) {
+  const squares = []; // O(1)
+  for (let i = 1; i <= n; i++) {
+    // O(1) - note that running a for loop is not O(n), it it interacting with the output (array in this case) that makes it O(n)
+    squares.push(i * i);
+  }
+  // O(n) - for the forloop execution
+  let sum = 0; // O(1)
+  for (const square of squares) {
+    // O(1)
+    sum += square;
+  }
+  return sum;
+}
+
+// Space complexity = we then add up all the lines: O(1 + 1 + n + 1 + 1) = which is then O(n) which is the highest
+```
+
+To optimise the space complexity of this method from O(n) to O(1) we can simply remove the array:
+
+```js
+function sumSquares(n) {
+  let sum = 0; // O(1)
+  for (let i = 1; i <= n; i++) {
+    // O(1)
+    sum += i * i;
+  }
+  return sum;
+}
+
+// Space complexity: O(1)
+```
+
+## Big O simplification rules
+
+1. Drop the constant multipliers
+
+In the following we have a time complexity of O(2n), this is because each forloop is O(n), then we SUM the individual times to the outcome.
+
+THEN, we can drop the constant multiplier, in this case 2 to make the time complexity output O(n). Why can we drop the 2 here?
+This is because both O(2n) and O(n) fall into an O(n) class of complexity.
+
+```jsx
+function printNumbersAndSquares(n) {
+  for (let i = 1; i <= n; i++) {
+    console.log(i);
+  }
+  // O(n)
+  for (let i = 1; i <= n; i++) {
+    console.log(i * i);
+  }
+  // O(n)
+}
+
+// Time complexity: O(n + n) = O(2n) = O(n)
+```
+
+2. Drop the non-dominant terms
+
+In the following image, we can see we have these concepts of `More dominant` and `Less dominant`:
+
+![Time Complexity Dominancy](assets/time_complexity_dominancy.png)
+
+Dominant means that it matters _more_ in the analysis.
+
+For example, if we calculate that we have the following in our code: O(n^2) + O(n) + (O1) we could then infer we have the following addition:
+
+O(n^2 + n + 1)
+
+Then with the 'drop the non-dominant terms' rule, we simplify this to O(n^2). And remove the less dominant n + 1.
+
+### Challenge
+
+Use the Big O simplification rules to simplify the following:
+
+1. O(3n): O(n) = Drop the constant multipliers
+2. O(n^2 + 1) = O(n^2) = Drop the non-dominant terms
+3. O(2n^2 + n) = O(n^2) = Drop the constant multipliers AND Drop the non-dominant terms
+4. O(3n + log(n)) = O(n) = Drop the constant multipliers AND Drop the non-dominant terms
