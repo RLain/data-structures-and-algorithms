@@ -100,3 +100,27 @@ Notes:
 2. If you need to, feel free to go back to the previous lesson on strings to brush up.
 3. Lastly, and only if you absolutely need to, I added some hints for you in `hints.md` to check out.
 ```
+
+```js
+export function findAllPalindromes(usernames) {
+  let outcome = []; //SC: O(1)
+
+  if (!usernames.length) return outcome; //TC: O(1)
+
+  usernames.map((username) => {
+    if (!username.length) return;
+    const normalisedName = username.toLowerCase(); //SC: O(k)
+    const originalName = normalisedName.split(""); //SC: O(k)
+    const reversedName = [...originalName].reverse(); //SC: O(k)
+    //Note I initially tried to directly compare the arrays e.g. originalName === reversedName which is FALSE because remember....arrays compare locations in memory! Not the values. We actually need to compare the string values.
+    if (originalName.join("") === reversedName.join("")) {
+      console.log("Matching", originalName, reversedName);
+      outcome.push(username);
+    }
+  }); //For the map = TC: O(k)
+  return outcome;
+}
+
+// Time complexity: O(k)
+// Space complexity: O(k)
+```
