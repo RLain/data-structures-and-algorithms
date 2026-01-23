@@ -188,3 +188,19 @@ Use the Big O simplification rules to simplify the following:
 2. O(n^2 + 1) = O(n^2) = Drop the non-dominant terms
 3. O(2n^2 + n) = O(n^2) = Drop the constant multipliers AND Drop the non-dominant terms
 4. O(3n + log(n)) = O(n) = Drop the constant multipliers AND Drop the non-dominant terms
+
+
+### O(k)
+
+In the `README_strings.md` file we had a pallindrome challenge that has references to O(k). It is important to understand that this is _still_ `Linear`.  The example challenge was us iterating through an array containing strings with variable character lengths.
+
+O(k) is not special — it’s just Linear, with a different variable.
+
+Mental model, Think of it like this:
+
+- O(n) → “How many boxes?”
+- O(k) → “How many items inside each box?”
+- O(n × k) → “Open every box and check every item”
+
+Same linear behavior, different axis.
+

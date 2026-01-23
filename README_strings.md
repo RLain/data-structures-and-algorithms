@@ -124,3 +124,63 @@ export function findAllPalindromes(usernames) {
 // Time complexity: O(k)
 // Space complexity: O(k)
 ```
+
+For additional insights here are some other ways to solve this
+
+### Chat GPTs approach:
+
+```js
+export const findAllPalindromes = usernames =>
+  usernames.filter(name => {
+    const s = name.toLowerCase(); //TC: O(k) - as touches every character once
+    let l = 0, r = s.length - 1;
+    while (l < r) {
+      if (s[l++] !== s[r--]) return false;
+    }
+    return true;
+  }); //TC: O(n) for the filter iteration
+
+//Total time complexity:
+//• Per username: O(k)
+//• Across all usernames: O(n × k)
+//Time: O(n × k)
+//Space: O(1)
+  ```
+
+### The instructors approach:
+
+```js
+export function findAllPalindromes(usernames) {
+  const result = []
+  for (const username of usernames) {
+    if (isPalindrome(username)) { // O(k)
+      result.push(username)
+    }
+  }
+  // O(n)
+  return result
+}
+
+function isPalindrome(username) {
+  const reversed = reverse(username) // O(k)
+  const result = username.toLowerCase() === reversed.toLowerCase() // O(k)
+  return result
+}
+
+function reverse(string) {
+  const characters = string.split("") // O(k)
+  let left = 0
+  let right = characters.length - 1
+  while (left < right) {
+    const temp = characters[left]
+    characters[left] = characters[right]
+    characters[right] = temp
+    left++
+    right--
+  }
+  const reversed = characters.join("") // O(k)
+  return reversed
+}
+// Time complexity: O(n * k)
+// Space complexity: O(n * k)
+```
