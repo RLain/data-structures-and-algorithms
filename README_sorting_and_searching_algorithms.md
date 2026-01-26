@@ -17,8 +17,8 @@ Steps:
 
 1.  Iterate n - 1 times:
 2.  Iterate from the start of the array to the end of the unsorted numbers:
-3.           If the current number is greater than the one after it:
-4.             Swap the numbers. Bubble the greater number up.
+3.                   If the current number is greater than the one after it:
+4.                     Swap the numbers. Bubble the greater number up.
 
 ```js
 function bubbleSort(numbers) {
@@ -76,3 +76,40 @@ _Disadvantages of Bubble Sort:_
 ## Recursion
 
 > When a function calls itself
+
+Here is an example of a recursive function using a factorial algorithm:
+
+Algorithm: Factorial
+Input: a number, n
+Output: the factorial of n, n!
+
+Steps:
+
+1. If n is 0:
+2. return 1
+3. Return n _ factorial(n - 1)
+   _/
+
+### Challenge:
+
+Implement the factorial algorithm above:
+
+```js
+function factorial(n) {
+  //Base
+  if (n === 0 || n === 1) return 1;
+  return n * factorial(n - 1); //Recursion where the function calls itself
+}
+```
+
+Every time a recursive function calls itself it takes up memory space in the call stack, as such the chain of recursive calls take up a lot of memory space which impacts space complexity.
+
+Read more: https://launchschool.com/books/advanced_dsa/read/time_and_space_complexity_recursive
+
+![Time complexity of factorial](assets/time_complexity_factorial.png)
+
+![Space complexity of factorial](assets/space_complexity_factorial.png)
+
+## Merge sort
+
+> A fast sorting algorithm with a time complexity of O(n log n), which is a huge improvement over O(n^2).
