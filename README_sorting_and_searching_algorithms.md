@@ -17,8 +17,8 @@ Steps:
 
 1.  Iterate n - 1 times:
 2.  Iterate from the start of the array to the end of the unsorted numbers:
-3.                   If the current number is greater than the one after it:
-4.                     Swap the numbers. Bubble the greater number up.
+3.                         If the current number is greater than the one after it:
+4.                           Swap the numbers. Bubble the greater number up.
 
 ```js
 function bubbleSort(numbers) {
@@ -113,3 +113,106 @@ Read more: https://launchschool.com/books/advanced_dsa/read/time_and_space_compl
 ## Merge sort
 
 > A fast sorting algorithm with a time complexity of O(n log n), which is a huge improvement over O(n^2).
+
+Here's a step-by-step explanation of how merge sort works:
+
+1. _Divide_: Divide the list or array recursively into two halves until it can no more be divided.
+2. _Conquer_: Each subarray is sorted individually using the merge sort algorithm.
+3. _Merge_: The sorted subarrays are merged back together in sorted order. The process continues until all elements from both subarrays have been merged.
+
+_Advantages and Disadvantages of Merge Sort_
+
+_Advantages_
+
+- Stability : Merge sort is a stable sorting algorithm, which means it maintains the relative order of equal elements in the input array.
+- Guaranteed worst-case performance: Merge sort has a worst-case time complexity of O(N logN) , which means it performs well even on large datasets.
+- Simple to implement: The divide-and-conquer approach is straightforward.
+- Naturally Parallel : We independently merge subarrays that makes it suitable for parallel processing.
+
+_Disadvantages_
+
+- Space complexity: Merge sort requires additional memory to store the merged sub-arrays during the sorting process.
+- Not in-place: Merge sort is not an in-place sorting algorithm, which means it requires additional memory to store the sorted data. This can be a disadvantage in applications where memory usage is a concern.
+- Merge Sort is Slower than QuickSort in general as QuickSort is more cache friendly because it works in-place.
+
+```js
+function mergeSort(numbers) {
+  if (numbers.length <= 1) {
+    return numbers;
+  }
+  const mid = Math.floor(numbers.length / 2);
+  const leftHalf = numbers.slice(0, mid);
+  const rightHalf = numbers.slice(mid);
+  const sortedLeft = mergeSort(leftHalf);
+  const sortedRight = mergeSort(rightHalf);
+
+  return merge(sortedLeft, sortedRight);
+}
+
+function merge(leftHalf, rightHalf) {
+  const result = [];
+  let leftPointer = 0;
+  let rightPointer = 0;
+  while (leftPointer < leftHalf.length && rightPointer < rightHalf.length) {
+    if (leftHalf[leftPointer] < rightHalf[rightPointer]) {
+      result.push(leftHalf[leftPointer]);
+      leftPointer++;
+    } else {
+      result.push(rightHalf[rightPointer]);
+      rightPointer++;
+    }
+  }
+  while (leftPointer < leftHalf.length) {
+    result.push(leftHalf[leftPointer]);
+    leftPointer++;
+  }
+  while (rightPointer < rightHalf.length) {
+    result.push(rightHalf[rightPointer]);
+    rightPointer++;
+  }
+  return result;
+}
+```
+
+## Linear sort
+
+This was my original implementation, which was well over-baked....
+
+```js
+export function linearSearch(numbers, target) {
+  let result = 0; //SC: O(1) //❌ Unecessary, we can simply return the index or the -1
+  if (numbers.length < 1) return -1; //❌ Unecessary, adds no value. Empty arrays would simply eject with -1 lower in the function.
+
+  //❌ Bad, this is why I needed to use indexOf. Rather use a for(let i ==0) with the index in the loop.
+  for (const number of numbers) {
+    //❌ Bad this also has a hidden time complexity, as indexOf inside a loop combines to O(n²).
+    //SC: O(1)
+    if (number === target) {
+      result = numbers.indexOf(number); //❌ Bad. indexOf returns the first occurence.
+      return result;
+    } else result = -1; //❌ Unecessary and bad we don't need this else path and it is redundant to return -1 for every failed loop.
+  }
+  return result; //❌ Unecessary  simply return -1
+}
+
+console.log(linearSearch([2, 8, 13, 4, 5], 5));
+
+// Time complexity: O(n²) due to calling an O(n) operation (indexOf) inside an O(n) loop.
+// Space complexity: O(1) =. we're only storing single length variables = constant extra memory.
+```
+
+This was the lecturer's approach, must simpler, cleaner and quicker. No
+
+```js
+export function linearSearch(numbers, target) {
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] === target) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// Time complexity: O(n) due to single for loop
+// Space complexity: O(1). Uses a constant amount of extra memory, no allocations, no helper structures.
+```
