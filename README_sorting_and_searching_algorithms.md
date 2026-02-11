@@ -17,8 +17,8 @@ Steps:
 
 1.  Iterate n - 1 times:
 2.  Iterate from the start of the array to the end of the unsorted numbers:
-3.                         If the current number is greater than the one after it:
-4.                           Swap the numbers. Bubble the greater number up.
+3.                          If the current number is greater than the one after it:
+4.                            Swap the numbers. Bubble the greater number up.
 
 ```js
 function bubbleSort(numbers) {
@@ -201,7 +201,10 @@ console.log(linearSearch([2, 8, 13, 4, 5], 5));
 // Space complexity: O(1) =. we're only storing single length variables = constant extra memory.
 ```
 
-This was the lecturer's approach, must simpler, cleaner and quicker. No
+This was the lecturer's approach, must simpler, cleaner and quicker. This is the _canonical_ approach:
+
+> Canonical: The standard, widely accepted, “textbook” version of a solution.
+> Rule of thumb for canonical: If another engineer sees it and immediately understands it without thinking, it’s canonical.
 
 ```js
 export function linearSearch(numbers, target) {
@@ -216,3 +219,7 @@ export function linearSearch(numbers, target) {
 // Time complexity: O(n) due to single for loop
 // Space complexity: O(1). Uses a constant amount of extra memory, no allocations, no helper structures.
 ```
+
+## Binary search
+
+> An efficient sorting algorithm with a time complexity of O(log n).
