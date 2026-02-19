@@ -17,8 +17,8 @@ Steps:
 
 1.  Iterate n - 1 times:
 2.  Iterate from the start of the array to the end of the unsorted numbers:
-3.                          If the current number is greater than the one after it:
-4.                            Swap the numbers. Bubble the greater number up.
+3.                              If the current number is greater than the one after it:
+4.                                Swap the numbers. Bubble the greater number up.
 
 ```js
 function bubbleSort(numbers) {
@@ -223,3 +223,115 @@ export function linearSearch(numbers, target) {
 ## Binary search
 
 > An efficient sorting algorithm with a time complexity of O(log n).
+
+This was my initial solution (also see binarySearch.js):
+
+```js
+export function binarySearch(numbers, target) {
+  const numbersLength = numbers.length;
+  if (numbersLength < 1) return -1;
+
+  //❌ This uses mixed bounds,
+  let left = 0; // This is an inclusive bound
+  let right = numbersLength; // This starts as an exclusive bound, then becomes inclusive below (right = mid - 1)
+
+  //This then could become a problem with potential out-of-bounds access (numbers[mid] when mid === length)
+
+  console.log('start', {
+    numbers,
+    left,
+    right,
+    target
+  });
+
+  //❌ A for() loop is not correct for a conditional search of this nature (Binary search) as this is a count based loop.
+  // A while() loop would be more appropriate
+  for (let i = 0; i < numbersLength; i++) {
+    if (left > right) return -1;
+    let mid = left + Math.floor((right - left) / 2);
+    const midValue = numbers[mid];
+    console.log('mid', {
+      mid,
+      midValue
+    });
+    if (midValue === target) return mid;
+    else if (midValue < target) {
+      console.log('mid less than target');
+      left = mid + 1;
+    } else {
+      console.log('mid more than target');
+      right = mid - 1;
+    }
+
+    console.log('end', {
+      left,
+      right,
+      mid: numbers[mid],
+      target
+    });
+  }
+}
+
+console.log(binarySearch([2, 4, 5, 8, 13, 21], 5));
+```
+
+And here is the instructors approach:
+
+```js
+export function binarySearch(numbers, target) {
+  let l = 0;
+  let r = numbers.length - 1;
+  while (l <= r) {
+    const m = l + Math.floor((r - l) / 2);
+    if (numbers[m] === target) {
+      return m;
+    } else if (numbers[m] < target) {
+      l = m + 1;
+    } else {
+      r = m - 1;
+    }
+  }
+  return -1;
+}
+
+/* Time Complexity — O(log n). Why?
+- Each loop iteration halves the search interval. Starting with n elements:
+  - after 1 iteration → n / 2
+  - after 2 iterations → n / 4
+  - after k iterations → n / 2ᵏ
+
+The loop stops when the interval size reaches 0.
+
+/* Space Complexity — O(1) Why:
+- The algorithm uses a constant amount of extra memory: l, r, m
+- no recursion
+- no auxiliary data structures
+- Memory usage does not scale with input size.
+
+This is called constant auxiliary space. 
+*/
+```
+
+Some important learnings from this exercise:
+
+1. _Binary search is condition-driven, not count-driven_
+   a. The algorithm progresses until a search invariant breaks
+   b. You do not know in advance how many iterations are required
+   c. Termination depends on state, not iteration count
+
+This means that a `while()` loop is more suitable (condition driven), over a `for()` loop (count driven).
+
+There is also a failure mode with `while()` = "If it loops forever, the logic is wrong — which is exactly what you want to detect" that may be hidden in the `for()` loop.
+
+Use the loop that _expresses why the loop runs_.
+
+- while “Run while condition holds”
+- for “Run a known number of times”
+
+2. _Bounds define the search interval — the part of the array that is still a candidate._
+
+At every step, the algorithm must maintain a search invariant:
+
+“If the target exists, it is inside the current bounds.”
+
+Break that invariant and the algorithm is wrong.
