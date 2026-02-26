@@ -6,6 +6,8 @@ Scrimba course: https://scrimba.com/data-structures-and-algorithms-c0shn6ckdm
 
 A collection of unique key-value pairs with O(1) lookup time complexity.
 
+Additional reading: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
 When to use a map:
 
 - Unique keys
@@ -61,8 +63,33 @@ export function findNamesOfDuplicates(dinos) {
 ```
 
 _Time complexity_:
+
 We have a nested for() loop.
 
 - The first loops through the array starting at the first position for the array's length = O(n)
 - The second loops through the array starting at the second position for the array's length = O(n)
   Total =O(n^2)
+
+_Alternative approach using Map()_
+
+```js
+export function findNamesOfDuplicates(dinos) {
+  const namesOfDuplicates = [];
+  const idNames = new Map();
+  for (const { id, name } of dinos) {
+    if (idNames.has(id)) {
+      namesOfDuplicates.push(idNames.get(id));
+      namesOfDuplicates.push(name);
+    } else {
+      idNames.set(id, name);
+    }
+  }
+  return namesOfDuplicates;
+}
+```
+
+_Time complexity_:
+
+We now only have a single for() loop, which iterates through the length of the array.
+
+This totals O(n).
