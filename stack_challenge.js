@@ -178,7 +178,7 @@ export function isValid(exp) {
 
 // BIG learning: If you want to iterate through a string, iterate using for(of)!
 
-// This was the instructors approach, I clearly forgot about the isEmpty method...
+// This was the instructors approach, I clearly forgot about the isEmpty method...but good to see alignment
 
 import { Stack } from './stack';
 
