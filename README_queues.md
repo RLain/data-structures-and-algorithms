@@ -4,7 +4,7 @@ Scrimba course: https://scrimba.com/data-structures-and-algorithms-c0shn6ckdm
 
 # Queues
 
-An ordered collection of elements sthat you can:
+An ordered collection of elements that you can:
 
 1. Enqueue: Add to the back
 2. Dequeue: Remove from the front
