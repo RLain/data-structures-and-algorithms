@@ -72,7 +72,7 @@ export function addToEndUsingHead(head, value) {
   } else {
     console.log('action', head, value);
     console.log('value', value);
-    const tail = { value: value, next: null };
+    const tail = { value: value, next: null }; //⚠️ This is very wrong. Do not create new objects when using Linked Lists!!
     console.log('tail', tail);
     /* Here we need to append the new node onto the bottom value's next.
        Node {
@@ -90,4 +90,32 @@ export function addToEndUsingHead(head, value) {
   }
   console.log('result', head);
   return head;
+}
+
+// Attempt 2
+export function addToEndUsingHead(head, value) {
+  const node = new Node(value);
+  if (head === null) {
+    head = node;
+  } else {
+    let current = head;
+    // This walks through the head Nodes, until the condition is no longer reached, ergo next = null. Which is exactly what we want as this becomes the tail.
+    while (current.next !== null) {
+      current = current.next;
+    }
+    return addToEndUsingTail(head, current, value);
+  }
+  return head;
+}
+
+// Lecturers approach
+
+export function addToEndUsingHead(head, value) {
+  let tail = head;
+  if (head !== null) {
+    while (tail.next !== null) {
+      tail = tail.next;
+    }
+  }
+  return addToEndUsingTail(head, tail, value);
 }

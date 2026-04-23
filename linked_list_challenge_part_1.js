@@ -66,6 +66,15 @@ Notes:
 1. Use the Node class provided.
 2. Check `hints.md` if needed. */
 
+// This is the Node Class
+
+export class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
 // # Attempt 1: = Failed
 // Part 1: adds 4 to a list of 1, 2, 3
 export function addToEndUsingTail(head, tail, value) {
