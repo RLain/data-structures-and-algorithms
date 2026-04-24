@@ -12,6 +12,4 @@ An `array` is stored in a `continguous segment in memory` which makes it easy to
 
 A `linked list`, is sort of the opposite of an array and stores data in a way that it does not need a continguous segment in memory. It is much easier to add an item to the beginning of a linked list. We simply create a node, make it point to the previous first node, and move the `head` pointer to the new first node which takes O(1) time.
 
-A `node` is comprised of two parts:
-
-[value][next]
+A `node` is comprised of two parts: [value][next]

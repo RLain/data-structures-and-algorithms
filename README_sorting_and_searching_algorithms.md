@@ -17,8 +17,8 @@ Steps:
 
 1.  Iterate n - 1 times:
 2.  Iterate from the start of the array to the end of the unsorted numbers:
-3.                              If the current number is greater than the one after it:
-4.                                Swap the numbers. Bubble the greater number up.
+3.  If the current number is greater than the one after it:
+4.  Swap the numbers. Bubble the greater number up.
 
 ```js
 function bubbleSort(numbers) {
