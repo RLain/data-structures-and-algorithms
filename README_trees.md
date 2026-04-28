@@ -42,3 +42,54 @@ export function insert(root, value) {
   return root;
 }
 ```
+
+## Depth-first search (DFS)
+
+- Uses a `stack`
+- Goes deep in the tree first
+
+Using this example
+![Binary Search Tree diagram](assets/binary_search_tree.png)
+
+We'd:
+
+1. Go down 4 > 2 > 1. 1 has no children so we'd
+2. Then move across to it's sibling if it exists ergo 3.
+3. If not found then we move up a layer to 2.
+4. If not found, we move to 2's sibling which is 6, then down again, to 5.
+5. Followed by 7.
+
+The pattern is down as deep as possible, then to siblings.
+Then up a layer, to siblings
+etc
+
+## Breadth-first search (BFS)
+
+- Uses a `queue`
+- Looks at all the nodes in each level before moving to the next level
+
+Again using this example
+![Binary Search Tree diagram](assets/binary_search_tree.png)
+
+This does the reverse, it starts at the top, then works down each layer.
+
+1. Start at 4
+2. Then down to 2, and then 6
+3. Then down to 1 > 3 > 5 > 7
+
+## DFS vs BFS
+
+Use DFS:
+
+1. When the target is deep in the tree
+2. To traverse the tree in:
+   a. In order
+   b. Pre order
+   c. Post order
+3. To minimize memory use
+
+Use BFS:
+
+1. When the target is `close` to the root
+2. To visit all the nodes in increasing order of distance from the root
+3. To find the shortest path to a node
